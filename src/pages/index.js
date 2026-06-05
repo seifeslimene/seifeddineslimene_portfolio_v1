@@ -67,7 +67,11 @@ export default function Home() {
         <HireMe />
 
         <div className='absolute right-8 bottom-8 inline-block w-24 md:hidden'>
-          <Image src={lightBulb} alt='seifeslimene' className='w-full h-auto' />
+          <Image
+            src={lightBulb}
+            alt='seifeslimene'
+            className='w-full h-auto transition-all duration-300 dark:brightness-50 dark:saturate-0 dark:opacity-70'
+          />
         </div>
       </main>
     </>
