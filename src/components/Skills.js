@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useLanguage } from '@/context/LanguageContext';
 
 const Skill = ({ name, x, y }) => {
   return (
@@ -16,10 +17,13 @@ const Skill = ({ name, x, y }) => {
 };
 
 const Skills = () => {
+  const { language } = useLanguage();
+  const isFrench = language === 'fr';
+
   return (
     <>
       <h2 className='font-bold text-8xl mt-64 w-full text-center md:text-6xl md:mt-32'>
-        Skills
+        {isFrench ? 'Compétences' : 'Skills'}
       </h2>
       <div
         className='w-full h-screen relative flex items-center justify-center rounded-full bg-circularLight dark:bg-circularDark lg:h-[80vh] sm:h-[60vh] xs:h-[40vh] lg:bg-circularLightLg lg:dark:bg-circularDarkLg md:bg-circularLightMd md:dark:bg-circularDarkMd sm:bg-circularLightSm sm:dark:bg-circularDarkSm'
@@ -28,7 +32,7 @@ const Skills = () => {
           className='flex items-center justify-center rounded-full font-semibold bg-dark text-light p-8 shadow-dark cursor-pointer dark:text-dark dark:bg-light lg:p-6 md:p-4 xs:text-xs xs:p-2'
           whileHover={{ scale: 1.05 }}
         >
-          Fullstack
+          {isFrench ? 'Fullstack' : 'Fullstack'}
         </motion.div>
         <Skill name='React' x='-23vw' y='2vw' />
         <Skill name='Kea.js' x='-10vw' y='-12vw' />

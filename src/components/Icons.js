@@ -455,7 +455,7 @@ export const MoonIcon = ({ className, ...rest }) => (
   </svg>
 );
 
-export const CircularText = ({ className, ...rest }) => (
+export const CircularText = ({ className, text, ...rest }) => (
   <svg
     xmlns='http://www.w3.org/2000/svg'
     width='200'
@@ -472,7 +472,7 @@ export const CircularText = ({ className, ...rest }) => (
     </defs>
     <text className='text-[16px] font-semibold tracking-[3px] uppercase'>
       <textPath href='#circularTextPath'>
-        Fullstack Javascript Developer • Fullstack Javascript Developer •
+        {text || 'Fullstack Javascript Developer • Fullstack Javascript Developer •'}
       </textPath>
     </text>
   </svg>

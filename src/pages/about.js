@@ -9,6 +9,7 @@ import Skills from '@/components/Skills';
 import Experience from '@/components/Experience';
 import Education from '@/components/Education';
 import TransitionEffect from '@/components/TransitionEffect';
+import { useLanguage } from '@/context/LanguageContext';
 
 const AnimatedNumbers = ({ value }) => {
   const ref = useRef(null);
@@ -36,55 +37,64 @@ const AnimatedNumbers = ({ value }) => {
 };
 
 const about = () => {
+  const { language } = useLanguage();
+  const isFrench = language === 'fr';
+
   return (
     <>
       <Head>
-        <title>Seif Eddine Slimene | About</title>
+        <title>{isFrench ? 'Seif Eddine Slimene | À propos' : 'Seif Eddine Slimene | About'}</title>
         <meta
           name='description'
-          content='About Seif Eddine Slimene, Fullstack Javascript Developer based in Tunis, Tunisia with hands-on experience in frontend and backend web development.'
+          content={
+            isFrench
+              ? "À propos de Seif Eddine Slimene, développeur Fullstack Javascript basé à Meulan-en-Yvelines, France, avec une expérience pratique en développement web frontend et backend."
+              : 'About Seif Eddine Slimene, Fullstack Javascript Developer based in Meulan-en-Yvelines, France with hands-on experience in frontend and backend web development.'
+          }
         ></meta>
       </Head>
       <TransitionEffect />
       <main className='flex w-full flex-col items-center justify-center dark:text-light'>
         <Layout className='pt-16'>
           <AnimatedText
-            text='Building products with clarity, speed, and impact.'
+            text={
+              isFrench
+                ? 'Construire des produits avec clarté, rapidité et impact.'
+                : 'Building products with clarity, speed, and impact.'
+            }
             className='mb-16 lg:!text-7xl sm:!text-6xl xs:!text-4xl sm:mb-8'
           />
           <div className='grid w-full grid-cols-8 gap-16 sm:gap-8'>
             <div className='col-span-3 flex flex-col items-start justify-start xl:col-span-4 md:order-2 md:col-span-8'>
               <h2 className='mb-4 text-lg font-bold uppercase text-dark/75 dark:text-light/75'>
-                Biography
+                {isFrench ? 'Biographie' : 'Biography'}
               </h2>
               <p className='font-medium'>
-                I am Seif Eddine Slimene, a Fullstack Javascript Developer based
-                in Tunis, Tunisia. I focus on delivering high-quality web
-                applications with modern technologies like React, Next.js,
-                Node.js, and SQL.
+                {isFrench
+                  ? "Je suis Seif Eddine Slimene, développeur Fullstack Javascript basé à Meulan-en-Yvelines, France. Je me concentre sur la livraison d'applications web de haute qualité avec des technologies modernes comme React, Next.js, Node.js et SQL."
+                  : 'I am Seif Eddine Slimene, a Fullstack Javascript Developer based in Meulan-en-Yvelines, France. I focus on delivering high-quality web applications with modern technologies like React, Next.js, Node.js, and SQL.'}
               </p>
               <p className='my-4 font-medium'>
-                Since 2017, I have worked across ERP systems, freelance
-                fullstack projects, and product-focused frontend development at
-                scale. My approach combines clean architecture, maintainable
-                code, and strong attention to real user behavior.
+                {isFrench
+                  ? "Depuis 2017, j'ai travaillé sur des systèmes ERP, des projets fullstack en freelance et du développement frontend orienté produit à grande échelle. Mon approche combine architecture propre, code maintenable et forte attention au comportement réel des utilisateurs."
+                  : 'Since 2017, I have worked across ERP systems, freelance fullstack projects, and product-focused frontend development at scale. My approach combines clean architecture, maintainable code, and strong attention to real user behavior.'}
               </p>
 
               <p className='font-medium'>
-                I enjoy solving business problems through software, optimizing
-                performance and SEO, and building reusable systems that speed up
-                team delivery while maintaining product quality.
+                {isFrench
+                  ? "J'aime résoudre des problèmes métier avec le logiciel, optimiser les performances et le SEO, et construire des systèmes réutilisables qui accélèrent la livraison des équipes tout en maintenant la qualité produit."
+                  : 'I enjoy solving business problems through software, optimizing performance and SEO, and building reusable systems that speed up team delivery while maintaining product quality.'}
               </p>
               <p className='my-4 font-medium'>
-                Contact: s.slimene19@gmail.com | +21653891387 | Tunis, TN |
-                LinkedIn /in/seifeslimene. Languages: Arabic, English, French,
-                and German.
+                {isFrench
+                  ? 'Contact : s.slimene19@gmail.com | +33 7 59 05 55 02 | 4 All. Saint Pierre, Meulan-en-Yvelines, Yvelines, France | LinkedIn /in/seifeslimene. Langues : arabe, anglais, français et allemand.'
+                  : 'Contact: s.slimene19@gmail.com | +33 7 59 05 55 02 | 4 All. Saint Pierre, Meulan-en-Yvelines, Yvelines, France | LinkedIn /in/seifeslimene. Languages: Arabic, English, French, and German.'}
               </p>
               <div className='font-medium'>
                 <h3 className='mb-2 font-bold uppercase text-dark/75 dark:text-light/75'>
-                  Languages
+                  {isFrench ? 'Langues' : 'Languages'}
                 </h3>
-                <p>Arabic, English, French, German</p>
+                <p>{isFrench ? 'Arabe, anglais, français, allemand' : 'Arabic, English, French, German'}</p>
               </div>
             </div>
             <div className='col-span-3 relative h-max rounded-2xl border-2 border-solid border-dark bg-light p-8 dark:bg-dark dark:border-light xl:col-span-4 md:order-1 md:col-span-8'>
@@ -103,7 +113,7 @@ const about = () => {
                   <AnimatedNumbers value={3} />+
                 </span>
                 <h2 className='text-xl font-medium capitalize text-dark/75 dark:text-light/75 xl:text-center md:text-lg sm:text-base xs:text-sm'>
-                  Core Roles
+                  {isFrench ? 'Rôles principaux' : 'Core Roles'}
                 </h2>
               </div>
               <div className='flex flex-col items-end justify-center xl:items-center'>
@@ -111,7 +121,7 @@ const about = () => {
                   <AnimatedNumbers value={3} />
                 </span>
                 <h2 className='text-xl font-medium capitalize text-dark/75 dark:text-light/75 xl:text-center md:text-lg sm:text-base xs:text-sm'>
-                  Highlight Projects
+                  {isFrench ? 'Projets marquants' : 'Highlight Projects'}
                 </h2>
               </div>
               <div className='flex flex-col items-end justify-center xl:items-center'>
@@ -119,7 +129,7 @@ const about = () => {
                   <AnimatedNumbers value={9} />+
                 </span>
                 <h2 className='text-xl font-medium capitalize text-dark/75 dark:text-light/75 xl:text-center md:text-lg sm:text-base xs:text-sm'>
-                  Years Of Experience
+                  {isFrench ? "Années d'expérience" : 'Years Of Experience'}
                 </h2>
               </div>
             </div>

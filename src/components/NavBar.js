@@ -13,6 +13,7 @@ import {
   MoonIcon,
 } from '@/components/Icons';
 import useThemeSwitcher from './hooks/useThemeSwitcher';
+import { useLanguage } from '@/context/LanguageContext';
 import Image from 'next/image';
 
 const CustomLink = ({ href, title, className = '' }) => {
@@ -61,7 +62,16 @@ const CustomMobileLink = ({ href, title, className = '', toggle }) => {
 
 const NavBar = () => {
   const [mode, setMode] = useThemeSwitcher();
+  const { language, toggleLanguage } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
+  const isFrench = language === 'fr';
+
+  const labels = {
+    home: isFrench ? 'Accueil' : 'Home',
+    about: isFrench ? 'À propos' : 'About',
+    projects: isFrench ? 'Projets' : 'Projects',
+    articles: isFrench ? 'Articles' : 'Articles',
+  };
 
   const handleClick = () => {
     setIsOpen(!isOpen);
@@ -91,10 +101,10 @@ const NavBar = () => {
       </button>
       <div className='w-full flex justify-between items-center lg:hidden'>
         <nav>
-          <CustomLink href='/' title='Home' className='mr-4' />
-          <CustomLink href='/about' title='About' className='mx-4' />
-          <CustomLink href='/projects' title='Projects' className='mx-4' />
-          <CustomLink href='/articles' title='Articles' className='ml-4' />
+          <CustomLink href='/' title={labels.home} className='mr-4' />
+          <CustomLink href='/about' title={labels.about} className='mx-4' />
+          <CustomLink href='/projects' title={labels.projects} className='mx-4' />
+          <CustomLink href='/articles' title={labels.articles} className='ml-4' />
         </nav>
         <nav className='flex items-center justify-center flex-wrap'>
           <motion.a
@@ -153,6 +163,13 @@ const NavBar = () => {
               <MoonIcon className={'fill-dark'} />
             )}
           </button>
+          <button
+            onClick={toggleLanguage}
+            className='ml-3 rounded-full border border-solid border-dark px-3 py-1 text-sm font-semibold dark:border-light'
+            aria-label='Toggle language'
+          >
+            {isFrench ? 'EN' : 'FR'}
+          </button>
         </nav>
       </div>
 
@@ -167,25 +184,25 @@ const NavBar = () => {
           <nav className='flex items-center flex-col justify-center'>
             <CustomMobileLink
               href='/'
-              title='Home'
+              title={labels.home}
               className=''
               toggle={handleClick}
             />
             <CustomMobileLink
               href='/about'
-              title='About'
+              title={labels.about}
               className=''
               toggle={handleClick}
             />
             <CustomMobileLink
               href='/projects'
-              title='Projects'
+              title={labels.projects}
               className=''
               toggle={handleClick}
             />
             <CustomMobileLink
               href='/articles'
-              title='Articles'
+              title={labels.articles}
               className=''
               toggle={handleClick}
             />
@@ -246,6 +263,13 @@ const NavBar = () => {
               ) : (
                 <MoonIcon className={'fill-dark'} />
               )}
+            </button>
+            <button
+              onClick={toggleLanguage}
+              className='ml-3 rounded-full border border-solid border-light px-3 py-1 text-xs font-semibold text-light dark:border-dark dark:text-dark'
+              aria-label='Toggle language'
+            >
+              {isFrench ? 'EN' : 'FR'}
             </button>
           </nav>
         </motion.div>

@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll } from 'framer-motion';
 import LiIcon from './LiIcon';
+import { useLanguage } from '@/context/LanguageContext';
 
 const Details = ({ type, time, place, info }) => {
   const first = useRef(null);
@@ -28,6 +29,38 @@ const Details = ({ type, time, place, info }) => {
 };
 
 const Education = () => {
+  const { language } = useLanguage();
+  const isFrench = language === 'fr';
+  const educationEntries = isFrench
+    ? [
+        {
+          type: 'Licence Appliquee en Reseaux Informatiques',
+          time: '2012 - 2016',
+          place: "ISITCOM - Institut Superieur d'Informatique et Techniques de Communication de Hammam Sousse, Tunisie",
+          info: 'Base solide en réseaux, systèmes et génie logiciel pratique.',
+        },
+        {
+          type: "Concours National d'Entree en Ecole d'Ingenieurs",
+          time: '2010 - 2012',
+          place: "IPEIT - Institut Preparatoire aux Etudes d'Ingenieurs de Tunis, Tunisie",
+          info: 'Cycle preparatoire axe sur la pensee analytique et les fondamentaux techniques.',
+        },
+      ]
+    : [
+        {
+          type: 'Applied License In Computer Networks',
+          time: '2012 - 2016',
+          place: "ISITCOM - L'Institut Supérieur d'informatique et Techniques de Communication de Hammam Sousse, Tunisia",
+          info: 'Built strong foundations in networking, systems, and practical software engineering.',
+        },
+        {
+          type: 'National Engineering Entrance Exam',
+          time: '2010 - 2012',
+          place: "IPEIT - Institut Préparatoire aux Etudes d'Ingénieurs de Tunis, Tunisia",
+          info: 'Completed preparatory engineering studies focused on analytical thinking and technical fundamentals.',
+        },
+      ];
+
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -36,7 +69,7 @@ const Education = () => {
   return (
     <div className='my-64'>
       <h2 className='font-bold text-8xl mb-32 w-full text-center md:text-6xl xs:text-4xl md:mb-16'>
-        Education
+        {isFrench ? 'Formation' : 'Education'}
       </h2>
       <div ref={ref} className='w-[75%] mx-auto relative lg:w-[90%] md:w-full'>
         <motion.div
@@ -44,18 +77,9 @@ const Education = () => {
           className='absolute left-9 top-0 w-[4px] h-full bg-dark origin-top dark:bg-light md:w-[2px] md:left-[30px] xs:left-[20px]'
         />
         <ul className='w-full flex flex-col items-start justify-between ml-4 xs:ml-2'>
-          <Details
-            type='Applied License In Computer Networks'
-            time='2012 - 2016'
-            place="ISITCOM - L'Institut Supérieur d'informatique et Techniques de Communication de Hammam Sousse, Tunisia"
-            info='Built strong foundations in networking, systems, and practical software engineering.'
-          />
-          <Details
-            type='National Engineering Entrance Exam'
-            time='2010 - 2012'
-            place="IPEIT - Institut Préparatoire aux Etudes d'Ingénieurs de Tunis, Tunisia"
-            info='Completed preparatory engineering studies focused on analytical thinking and technical fundamentals.'
-          />
+          {educationEntries.map((entry) => (
+            <Details key={`${entry.type}-${entry.time}`} {...entry} />
+          ))}
         </ul>
       </div>
     </div>

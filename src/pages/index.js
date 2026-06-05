@@ -8,15 +8,27 @@ import { LinkArrow } from '@/components/Icons';
 import HireMe from '@/components/HireMe';
 import lightBulb from '../../public/images/svgs/miscellaneous_icons_1.svg';
 import TransitionEffect from '@/components/TransitionEffect';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function Home() {
+  const { language } = useLanguage();
+  const isFrench = language === 'fr';
+
   return (
     <>
       <Head>
-        <title>Seif Eddine Slimene | Fullstack Javascript Developer</title>
+        <title>
+          {isFrench
+            ? 'Seif Eddine Slimene | Développeur Fullstack Javascript'
+            : 'Seif Eddine Slimene | Fullstack Javascript Developer'}
+        </title>
         <meta
           name='description'
-          content='Seif Eddine Slimene is a Fullstack Javascript Developer based in Tunis, Tunisia. Specialized in Next.js, React, Node.js, and scalable web applications.'
+          content={
+            isFrench
+              ? 'Seif Eddine Slimene est un développeur Fullstack Javascript basé à Meulan-en-Yvelines, France. Spécialisé en Next.js, React, Node.js et applications web évolutives.'
+              : 'Seif Eddine Slimene is a Fullstack Javascript Developer based in Meulan-en-Yvelines, France. Specialized in Next.js, React, Node.js, and scalable web applications.'
+          }
         />
       </Head>
       <TransitionEffect />
@@ -36,22 +48,25 @@ export default function Home() {
             </div>
             <div className='w-1/2 flex flex-col items-center self-center lg:w-full lg:text-center'>
               <AnimatedText
-                text='Seif Eddine Slimene - Fullstack Javascript Developer'
+                text={
+                  isFrench
+                    ? 'Seif Eddine Slimene - Développeur Fullstack Javascript'
+                    : 'Seif Eddine Slimene - Fullstack Javascript Developer'
+                }
                 className='!text-6xl !text-left xl:!text-5xl lg:!text-center lg:!text-6xl md:!text-5xl sm:!text-3xl'
               />
               <p className='my-4 text-base font-medium md:text-sm sm:text-xs'>
-                I build fast, scalable, and user-focused web products with
-                modern Javascript technologies. Based in Tunis, Tunisia, I bring
-                strong fullstack experience across React, Next.js, Node.js, and
-                cloud-ready application architecture.
+                {isFrench
+                  ? "Je construis des produits web rapides, évolutifs et centrés sur l'utilisateur avec des technologies Javascript modernes. Basé à Meulan-en-Yvelines, France, j'apporte une solide expérience fullstack sur React, Next.js, Node.js et des architectures applicatives prêtes pour le cloud."
+                  : 'I build fast, scalable, and user-focused web products with modern Javascript technologies. Based in Meulan-en-Yvelines, France, I bring strong fullstack experience across React, Next.js, Node.js, and cloud-ready application architecture.'}
               </p>
               <div className='flex items-center self-start mt-2 lg:self-center'>
                 <Link
-                  href='/resume.pdf'
+                  href={isFrench ? '/cv.pdf' : '/resume.pdf'}
                   target={'_blank'}
                   className='flex items-center bg-dark text-light p-2.5 px-6 rounded-lg text-lg font-semibold hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-dark dark:bg-light dark:text-dark hover:dark:bg-dark hover:dark:text-light hover:dark:border-light md:p-2 md:px-4 md:text-base'
                 >
-                  Resume <LinkArrow className='w-6 ml-1' />
+                  {isFrench ? 'CV' : 'Resume'} <LinkArrow className='w-6 ml-1' />
                 </Link>
                 <Link
                   href='mailto:s.slimene19@gmail.com'
