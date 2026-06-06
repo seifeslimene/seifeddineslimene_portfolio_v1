@@ -101,6 +101,7 @@ const Lightbox = ({
   labels,
 }) => {
   const [zoom, setZoom] = useState(1);
+  const [isMobileViewport, setIsMobileViewport] = useState(false);
   const MIN_ZOOM = 1;
   const MAX_ZOOM = 3;
   const ZOOM_STEP = 0.25;
@@ -116,10 +117,30 @@ const Lightbox = ({
   const resetZoom = () => setZoom(1);
 
   useEffect(() => {
-    if (isOpen) {
-      setZoom(1);
+    if (typeof window === 'undefined') {
+      return undefined;
     }
-  }, [isOpen, currentIndex]);
+
+    const mediaQuery = window.matchMedia('(max-width: 767px)');
+    const handleViewportChange = (event) => {
+      setIsMobileViewport(event.matches);
+    };
+
+    setIsMobileViewport(mediaQuery.matches);
+    if (typeof mediaQuery.addEventListener === 'function') {
+      mediaQuery.addEventListener('change', handleViewportChange);
+      return () => mediaQuery.removeEventListener('change', handleViewportChange);
+    }
+
+    mediaQuery.addListener(handleViewportChange);
+    return () => mediaQuery.removeListener(handleViewportChange);
+  }, []);
+
+  useEffect(() => {
+    if (isOpen) {
+      setZoom(isMobileViewport ? 1.45 : 1);
+    }
+  }, [isOpen, currentIndex, isMobileViewport]);
 
   const hasMultipleImages = images.length > 1;
 
@@ -130,7 +151,7 @@ const Lightbox = ({
   return (
     <AnimatePresence>
       <motion.div
-        className='fixed inset-0 z-50 flex items-center justify-center bg-dark/90 p-4'
+        className='fixed inset-0 z-50 flex items-center justify-center bg-dark/90 p-4 md:p-1'
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -144,7 +165,7 @@ const Lightbox = ({
           transition={{ duration: 0.2 }}
           onClick={(event) => event.stopPropagation()}
         >
-          <div className='absolute left-4 top-4 z-10 flex items-center gap-2 rounded-full bg-dark/70 px-2 py-1 text-light'>
+          <div className='absolute left-4 top-4 z-10 flex items-center gap-2 rounded-full bg-dark/70 px-2 py-1 text-light md:left-2 md:top-2 md:scale-90'>
             <button
               type='button'
               onClick={zoomOut}
@@ -175,7 +196,7 @@ const Lightbox = ({
           <button
             type='button'
             onClick={onClose}
-            className='absolute right-4 top-4 z-10 rounded-full bg-dark/70 px-3 py-1 text-xl font-bold text-light'
+            className='absolute right-4 top-4 z-10 rounded-full bg-dark/70 px-3 py-1 text-xl font-bold text-light md:right-2 md:top-2 md:scale-90'
             aria-label={labels.closeLightbox}
           >
             x
@@ -190,15 +211,18 @@ const Lightbox = ({
               <span aria-hidden='true'>&larr;</span>
             </button>
           ) : null}
-          <div className='relative h-[80vh] w-full overflow-auto rounded-xl bg-dark/60 p-2'>
+          <div className='relative flex h-[80vh] w-full items-center justify-center overflow-auto rounded-xl bg-dark/60 p-2 md:h-[90vh] md:p-0'>
             <Image
               src={images[currentIndex]}
               alt={`${title} screenshot ${currentIndex + 1}`}
               width={1600}
               height={900}
               unoptimized
-              className='mx-auto block h-auto max-w-none'
-              style={{ width: `${zoom * 100}%`, height: 'auto' }}
+              className='block h-auto max-h-full w-auto max-w-full'
+              style={{
+                transform: `scale(${zoom})`,
+                transformOrigin: 'center center',
+              }}
             />
           </div>
           {hasMultipleImages ? (
