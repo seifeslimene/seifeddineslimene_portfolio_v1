@@ -10,6 +10,7 @@ import Experience from '@/components/Experience';
 import Education from '@/components/Education';
 import TransitionEffect from '@/components/TransitionEffect';
 import { useLanguage } from '@/context/LanguageContext';
+import projects from '@/data/projects';
 
 const AnimatedNumbers = ({ value }) => {
   const ref = useRef(null);
@@ -39,6 +40,14 @@ const AnimatedNumbers = ({ value }) => {
 const about = () => {
   const { language } = useLanguage();
   const isFrench = language === 'fr';
+  const projectsCount = projects.length;
+  const coreRoles = [
+    'Frontend Developer',
+    'Fullstack Developer',
+    'Functional ERP Administrator',
+  ];
+  const coreRolesCount = coreRoles.length;
+  const yearsOfExperience = new Date().getFullYear() - 2017;
 
   return (
     <>
@@ -110,7 +119,7 @@ const about = () => {
             <div className='col-span-2 flex flex-col items-end justify-between xl:col-span-8 xl:flex-row xl:items-center md:order-3'>
               <div className='flex flex-col items-end justify-center xl:items-center'>
                 <span className='inline-block text-7xl font-bold md:text-6xl sm:text-5xl xs:text-4xl'>
-                  <AnimatedNumbers value={3} />+
+                  <AnimatedNumbers value={coreRolesCount} />+
                 </span>
                 <h2 className='text-xl font-medium capitalize text-dark/75 dark:text-light/75 xl:text-center md:text-lg sm:text-base xs:text-sm'>
                   {isFrench ? 'Rôles principaux' : 'Core Roles'}
@@ -118,7 +127,7 @@ const about = () => {
               </div>
               <div className='flex flex-col items-end justify-center xl:items-center'>
                 <span className='inline-block text-7xl font-bold md:text-6xl sm:text-5xl xs:text-4xl'>
-                  <AnimatedNumbers value={3} />
+                  <AnimatedNumbers value={projectsCount} />
                 </span>
                 <h2 className='text-xl font-medium capitalize text-dark/75 dark:text-light/75 xl:text-center md:text-lg sm:text-base xs:text-sm'>
                   {isFrench ? 'Projets marquants' : 'Highlight Projects'}
@@ -126,7 +135,7 @@ const about = () => {
               </div>
               <div className='flex flex-col items-end justify-center xl:items-center'>
                 <span className='inline-block text-7xl font-bold md:text-6xl sm:text-5xl xs:text-4xl'>
-                  <AnimatedNumbers value={9} />+
+                  <AnimatedNumbers value={yearsOfExperience} />+
                 </span>
                 <h2 className='text-xl font-medium capitalize text-dark/75 dark:text-light/75 xl:text-center md:text-lg sm:text-base xs:text-sm'>
                   {isFrench ? "Années d'expérience" : 'Years Of Experience'}

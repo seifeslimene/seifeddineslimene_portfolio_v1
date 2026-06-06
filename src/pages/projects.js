@@ -100,6 +100,27 @@ const Lightbox = ({
   onNext,
   labels,
 }) => {
+  const [zoom, setZoom] = useState(1);
+  const MIN_ZOOM = 1;
+  const MAX_ZOOM = 3;
+  const ZOOM_STEP = 0.25;
+
+  const zoomIn = () =>
+    setZoom((previousZoom) =>
+      Math.min(MAX_ZOOM, Number((previousZoom + ZOOM_STEP).toFixed(2))),
+    );
+  const zoomOut = () =>
+    setZoom((previousZoom) =>
+      Math.max(MIN_ZOOM, Number((previousZoom - ZOOM_STEP).toFixed(2))),
+    );
+  const resetZoom = () => setZoom(1);
+
+  useEffect(() => {
+    if (isOpen) {
+      setZoom(1);
+    }
+  }, [isOpen, currentIndex]);
+
   const hasMultipleImages = images.length > 1;
 
   if (!isOpen || images.length === 0) {
@@ -123,6 +144,34 @@ const Lightbox = ({
           transition={{ duration: 0.2 }}
           onClick={(event) => event.stopPropagation()}
         >
+          <div className='absolute left-4 top-4 z-10 flex items-center gap-2 rounded-full bg-dark/70 px-2 py-1 text-light'>
+            <button
+              type='button'
+              onClick={zoomOut}
+              className='rounded px-2 py-1 text-sm font-bold disabled:opacity-40'
+              disabled={zoom <= MIN_ZOOM}
+              aria-label={labels.zoomOut}
+            >
+              -
+            </button>
+            <button
+              type='button'
+              onClick={resetZoom}
+              className='rounded px-2 py-1 text-xs font-semibold'
+              aria-label={labels.resetZoom}
+            >
+              {Math.round(zoom * 100)}%
+            </button>
+            <button
+              type='button'
+              onClick={zoomIn}
+              className='rounded px-2 py-1 text-sm font-bold disabled:opacity-40'
+              disabled={zoom >= MAX_ZOOM}
+              aria-label={labels.zoomIn}
+            >
+              +
+            </button>
+          </div>
           <button
             type='button'
             onClick={onClose}
@@ -141,14 +190,12 @@ const Lightbox = ({
               <span aria-hidden='true'>&larr;</span>
             </button>
           ) : null}
-          <div className='relative h-[80vh] w-full overflow-hidden rounded-xl bg-dark/60'>
-            <Image
+          <div className='relative h-[80vh] w-full overflow-auto rounded-xl bg-dark/60 p-2'>
+            <img
               src={images[currentIndex]}
               alt={`${title} screenshot ${currentIndex + 1}`}
-              fill
-              className='object-contain'
-              sizes='100vw'
-              priority
+              className='mx-auto block h-auto max-w-none'
+              style={{ width: `${zoom * 100}%` }}
             />
           </div>
           {hasMultipleImages ? (
@@ -184,24 +231,29 @@ const FeaturedProject = ({
   return (
     <article className='w-full flex items-center justify-between relative rounder-br-2xl rounded-3xl border border-solid border-dark bg-light shadow-2xl p-12 dark:bg-dark dark:border-light lg:flex-col lg:p-8 xs:rounded-2xl xs:rounded-br-3xl xs:p-4'>
       <div className='absolute top-0 -right-3 -z-10 w-[101%] h-[103%] rounded-[2.5rem] bg-dark rounded-br-3xl dark:bg-light xs:-right-2 sm:h-[102%] xs:w-full xs:rounded-[1.5rem]' />
-      <button
-        type='button'
-        onClick={onOpenGallery}
-        className='w-1/2 cursor-pointer overflow-hidden rounded-lg text-left lg:w-full'
-        aria-label={`${labels.openGallery} ${title} gallery`}
-      >
-        <FramerImage
-          src={img}
-          alt={title}
-          width={1200}
-          height={700}
-          className='w-full h-auto'
-          whileHover={{ scale: 1.05 }}
-          transition={{ duration: 0.2 }}
-          priority
-          sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw'
-        />
-      </button>
+      <div className='w-1/2 lg:w-full'>
+        <button
+          type='button'
+          onClick={onOpenGallery}
+          className='w-full cursor-pointer overflow-hidden rounded-lg text-left'
+          aria-label={`${labels.openGallery} ${title} gallery`}
+        >
+          <FramerImage
+            src={img}
+            alt={title}
+            width={1200}
+            height={700}
+            className='w-full h-auto'
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.2 }}
+            priority
+            sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw'
+          />
+        </button>
+        <span className='mt-3 inline-block rounded-full bg-dark/80 px-4 py-1.5 text-xs font-medium text-light dark:bg-light/90 dark:text-dark'>
+          {labels.galleryHint}
+        </span>
+      </div>
       <div className='w-1/2 flex flex-col items-start justify-between pl-6 lg:w-full lg:pl-0 lg:pt-6'>
         <span className='text-primary font-medium text-xl dark:text-primaryDark xs:text-base'>
           {type}
@@ -269,6 +321,9 @@ const Project = ({
           sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw'
         />
       </button>
+      <span className='mt-2 inline-block rounded-full bg-dark/80 px-3 py-1 text-xs font-medium text-light dark:bg-light/90 dark:text-dark'>
+        {labels.galleryHint}
+      </span>
       <div className='w-full flex flex-col items-start justify-between mt-4 flex-1'>
         <span className='text-primary font-medium text-xl dark:text-primaryDark lg:text-lg md:text-base'>
           {type}
@@ -315,8 +370,14 @@ const ProjectsPage = () => {
     closeLightbox: isFrench ? 'Fermer la galerie' : 'Close lightbox',
     previousImage: isFrench ? 'Image précédente' : 'Previous image',
     nextImage: isFrench ? 'Image suivante' : 'Next image',
+    zoomIn: isFrench ? 'Zoom avant' : 'Zoom in',
+    zoomOut: isFrench ? 'Zoom arriere' : 'Zoom out',
+    resetZoom: isFrench ? 'Reinitialiser le zoom' : 'Reset zoom',
     openGallery: isFrench ? 'Ouvrir la galerie' : 'Open gallery',
     openRepository: isFrench ? 'Ouvrir le depot' : 'Open repository',
+    galleryHint: isFrench
+      ? 'Cliquez sur l’image pour voir plus de captures'
+      : 'Click image to view more screenshots',
     visitProject: isFrench ? 'Voir le projet' : 'Visit Project',
     visit: isFrench ? 'Voir' : 'Visit',
     pageTitle: isFrench

@@ -43,7 +43,7 @@ const HireMe = () => {
         />
         <Link
           href='mailto:s.slimene19@gmail.com'
-          className={`flex items-center justify-center absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-dark text-light shadow-md border border-solid border-dark rounded-full font-semibold hover:bg-light hover:text-dark
+          className={`flex items-center justify-center absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-dark text-light shadow-md border border-solid border-dark rounded-full font-sans font-semibold tracking-wide hover:bg-light hover:text-dark
           dark:bg-dark dark:text-light hover:dark:bg-light hover:dark:text-dark hover:dark:border-dark ${
             isFrench
               ? 'w-32 h-32 px-3 text-[13px] leading-tight text-center md:w-24 md:h-24 md:text-[11px]'
