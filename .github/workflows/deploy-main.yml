@@ -2,18 +2,20 @@ name: Deploy portfolio on main
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Use Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: "20"
           cache: "npm"
@@ -27,22 +29,35 @@ jobs:
       - name: Pack artifact
         run: |
           VERSION="v1-${GITHUB_SHA::7}-$(date +%Y%m%d%H%M%S)"
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
           tar -C out -czf "${VERSION}.tar.gz" .
 
       - name: Setup SSH key
         run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.OCI_SSH_KEY }}" > ~/.ssh/id_ed25519
+          install -m 700 -d ~/.ssh
+          printf "%s" "${{ secrets.OCI_SSH_KEY }}" | tr -d '\r' > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H "${{ secrets.OCI_HOST }}" >> ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+
+      - name: Verify SSH connection
+        run: |
+          ssh -i ~/.ssh/id_ed25519 \
+            -o BatchMode=yes \
+            -o StrictHostKeyChecking=yes \
+            "${{ secrets.OCI_USER }}@${{ secrets.OCI_HOST }}" \
+            "echo ssh_ok"
 
       - name: Upload artifact
         run: |
-          scp -i ~/.ssh/id_ed25519 "${VERSION}.tar.gz" \
+          scp -i ~/.ssh/id_ed25519 \
+            -o BatchMode=yes \
+            "${VERSION}.tar.gz" \
             "${{ secrets.OCI_USER }}@${{ secrets.OCI_HOST }}:/tmp/${VERSION}.tar.gz"
 
       - name: Deploy on server
         run: |
-          ssh -i ~/.ssh/id_ed25519 "${{ secrets.OCI_USER }}@${{ secrets.OCI_HOST }}" \
+          ssh -i ~/.ssh/id_ed25519 \
+            -o BatchMode=yes \
+            "${{ secrets.OCI_USER }}@${{ secrets.OCI_HOST }}" \
             "/var/www/portfolio/scripts/deploy_static.sh '${VERSION}' '/tmp/${VERSION}.tar.gz'"
