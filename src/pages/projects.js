@@ -4,7 +4,7 @@ import Layout from '@/components/Layout';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import TransitionEffect from '@/components/TransitionEffect';
 import projects from '@/data/projects';
@@ -191,11 +191,14 @@ const Lightbox = ({
             </button>
           ) : null}
           <div className='relative h-[80vh] w-full overflow-auto rounded-xl bg-dark/60 p-2'>
-            <img
+            <Image
               src={images[currentIndex]}
               alt={`${title} screenshot ${currentIndex + 1}`}
+              width={1600}
+              height={900}
+              unoptimized
               className='mx-auto block h-auto max-w-none'
-              style={{ width: `${zoom * 100}%` }}
+              style={{ width: `${zoom * 100}%`, height: 'auto' }}
             />
           </div>
           {hasMultipleImages ? (
@@ -431,32 +434,35 @@ const ProjectsPage = () => {
     });
   };
 
-  const closeLightbox = () => {
+  const closeLightbox = useCallback(() => {
     setLightboxState((prevState) => ({ ...prevState, isOpen: false }));
-  };
+  }, []);
 
-  const canNavigate = lightboxState.images.length > 1;
-  const imageCount = lightboxState.images.length;
+  const goToPrevious = useCallback(() => {
+    setLightboxState((prevState) => {
+      const imageCount = prevState.images.length;
+      if (imageCount <= 1) {
+        return prevState;
+      }
+      return {
+        ...prevState,
+        index: (prevState.index - 1 + imageCount) % imageCount,
+      };
+    });
+  }, []);
 
-  const goToPrevious = () => {
-    if (!canNavigate) {
-      return;
-    }
-    setLightboxState((prevState) => ({
-      ...prevState,
-      index: (prevState.index - 1 + imageCount) % imageCount,
-    }));
-  };
-
-  const goToNext = () => {
-    if (!canNavigate) {
-      return;
-    }
-    setLightboxState((prevState) => ({
-      ...prevState,
-      index: (prevState.index + 1) % imageCount,
-    }));
-  };
+  const goToNext = useCallback(() => {
+    setLightboxState((prevState) => {
+      const imageCount = prevState.images.length;
+      if (imageCount <= 1) {
+        return prevState;
+      }
+      return {
+        ...prevState,
+        index: (prevState.index + 1) % imageCount,
+      };
+    });
+  }, []);
 
   useEffect(() => {
     if (!lightboxState.isOpen) {
@@ -477,7 +483,7 @@ const ProjectsPage = () => {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [lightboxState.isOpen, goToPrevious, goToNext]);
+  }, [lightboxState.isOpen, closeLightbox, goToPrevious, goToNext]);
 
   return (
     <>

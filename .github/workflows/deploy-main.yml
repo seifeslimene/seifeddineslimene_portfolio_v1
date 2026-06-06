@@ -1,0 +1,48 @@
+name: Deploy portfolio on main
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Build static export
+        run: npm run build
+
+      - name: Pack artifact
+        run: |
+          VERSION="v1-${GITHUB_SHA::7}-$(date +%Y%m%d%H%M%S)"
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          tar -C out -czf "${VERSION}.tar.gz" .
+
+      - name: Setup SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.OCI_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H "${{ secrets.OCI_HOST }}" >> ~/.ssh/known_hosts
+
+      - name: Upload artifact
+        run: |
+          scp -i ~/.ssh/id_ed25519 "${VERSION}.tar.gz" \
+            "${{ secrets.OCI_USER }}@${{ secrets.OCI_HOST }}:/tmp/${VERSION}.tar.gz"
+
+      - name: Deploy on server
+        run: |
+          ssh -i ~/.ssh/id_ed25519 "${{ secrets.OCI_USER }}@${{ secrets.OCI_HOST }}" \
+            "/var/www/portfolio/scripts/deploy_static.sh '${VERSION}' '/tmp/${VERSION}.tar.gz'"

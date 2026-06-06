@@ -37,7 +37,7 @@ const AnimatedNumbers = ({ value }) => {
   return <span ref={ref}></span>;
 };
 
-const about = () => {
+const AboutPage = () => {
   const { language } = useLanguage();
   const isFrench = language === 'fr';
   const projectsCount = projects.length;
@@ -152,4 +152,4 @@ const about = () => {
   );
 };
 
-export default about;
+export default AboutPage;

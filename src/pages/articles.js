@@ -103,7 +103,7 @@ const FeaturedArticle = ({ img, title, time, summary, link }) => {
   );
 };
 
-const articles = () => {
+const ArticlesPage = () => {
   const { language } = useLanguage();
   const isFrench = language === 'fr';
   const featuredTitle = isFrench
@@ -205,4 +205,4 @@ const articles = () => {
   );
 };
 
-export default articles;
+export default ArticlesPage;
