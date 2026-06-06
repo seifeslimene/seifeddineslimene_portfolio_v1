@@ -28,7 +28,7 @@ const HireMe = () => {
 
   return (
     <div
-      className={`fixed left-4 bottom-4 flex items-center justify-center overflow-hidden md:right-8 md:left-auto md:top-0 md:bottom-auto md:absolute sm:right-0 transition-opacity duration-300 ${
+      className={`fixed left-4 bottom-4 flex items-center justify-center overflow-hidden md:hidden transition-opacity duration-300 ${
         hideWidget ? 'opacity-0 pointer-events-none' : 'opacity-100'
       }`}
     >

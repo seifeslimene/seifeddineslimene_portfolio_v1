@@ -34,9 +34,9 @@ export default function Home() {
       <TransitionEffect />
       <main className='flex items-center text-dark w-full min-h-screen dark:text-light'>
         <Layout className='pt-0 md:p-16 sm:pt-8'>
-          <div className='relative -left-24 xl:-left-16 lg:left-0 flex items-center justify-between w-full lg:flex-col'>
+          <div className='relative -left-16 xl:-left-8 lg:left-0 flex items-center justify-between gap-14 xl:gap-10 lg:gap-8 w-full lg:flex-col'>
             <div className='w-1/2 md:w-full'>
-              <div className='w-[46%] lg:w-[42%] md:w-[56%] ml-auto mr-20 lg:mx-auto'>
+              <div className='w-[46%] lg:w-[42%] md:w-[56%] ml-auto mr-12 xl:mr-6 lg:mx-auto'>
                 <Image
                   src={profilePic}
                   alt='seifeslimene'
@@ -46,7 +46,7 @@ export default function Home() {
                 />
               </div>
             </div>
-            <div className='w-1/2 flex flex-col items-center self-center lg:w-full lg:text-center'>
+            <div className='w-1/2 pl-6 xl:pl-2 flex flex-col items-center self-center lg:w-full lg:pl-0 lg:text-center'>
               <AnimatedText
                 text={
                   isFrench

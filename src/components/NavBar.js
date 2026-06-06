@@ -44,7 +44,7 @@ const CustomMobileLink = ({ href, title, className = '', toggle }) => {
   return (
     <button
       href={href}
-      className={`${className} relative group text-light dark:text-dark my-2`}
+      className={`${className} relative group my-2.5 min-h-[42px] px-2 text-base tracking-[0.01em] text-light dark:text-dark`}
       onClick={handleClick}
     >
       {title}
@@ -178,10 +178,10 @@ const NavBar = () => {
           initial={{ scale: 0, opacity: 0, x: "-50%", y: "-50%" }}
           animate={{ scale: 1, opacity: 1 }}
           className='min-w-[70vw] flex flex-col justify-between z-30 items-center fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
-      bg-dark/90 dark:bg-light/75 rounded-lg backdrop-blur-md py-32
+      bg-dark/90 dark:bg-light/75 rounded-lg backdrop-blur-md py-24 px-8
       '
         >
-          <nav className='flex items-center flex-col justify-center'>
+          <nav className='flex items-center flex-col justify-center gap-3'>
             <CustomMobileLink
               href='/'
               title={labels.home}
@@ -207,66 +207,65 @@ const NavBar = () => {
               toggle={handleClick}
             />
           </nav>
-          <nav className='flex items-center justify-center flex-wrap mt-2'>
+          <nav className='mt-10 flex flex-wrap items-center justify-center gap-5'>
             <motion.a
               href='https://www.twitter.com/seifeslimene'
               target={'_blank'}
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.9 }}
-              className='w-6 mr-3 sm:mx-1'
+              className='flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full bg-light text-dark shadow-sm'
             >
-              <TwitterIcon />
+              <TwitterIcon className='h-6 w-6' />
             </motion.a>
             <motion.a
               href='https://www.github.com/seifeslimene'
               target={'_blank'}
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.9 }}
-              className='w-6 mx-3 bg-light rounded-full dark:bg-dark sm:mx-1'
+              className='flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full bg-light text-dark shadow-sm'
             >
-              <GithubIcon />
+              <GithubIcon className='h-6 w-6' />
             </motion.a>
             <motion.a
               href='https://www.linkedin.com/in/seifeslimene'
               target={'_blank'}
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.9 }}
-              className='w-6 mx-3 sm:mx-1'
+              className='flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full bg-light text-dark shadow-sm'
             >
-              <LinkedinIcon />
+              <LinkedinIcon className='h-6 w-6' />
             </motion.a>
             <motion.a
               href='https://www.pinterest.com/seifeslimene'
               target={'_blank'}
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.9 }}
-              className='w-6 mx-3 bg-light rounded-full sm:mx-1'
+              className='flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full bg-light text-dark shadow-sm'
             >
-              <PinterestIcon />
+              <PinterestIcon className='h-6 w-6' />
             </motion.a>
             <motion.a
               href='https://dribbble.com/seifeslimene'
               target={'_blank'}
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.9 }}
-              className='w-6 ml-3 sm:mx-1'
+              className='flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full bg-light text-dark shadow-sm'
             >
-              <DribbbleIcon />
+              <DribbbleIcon className='h-6 w-6' />
             </motion.a>
             <button
               onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}
-              className={`ml-3 flex items-center justify-center rounded-full p-1
-          ${mode === 'light' ? 'bg-dark text-light' : 'bg-light text-dark'}`}
+              className='flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full bg-light p-1 text-dark shadow-sm'
             >
               {mode === 'dark' ? (
-                <SunIcon className={'fill-dark'} />
+                <SunIcon className='h-6 w-6 fill-current' />
               ) : (
-                <MoonIcon className={'fill-dark'} />
+                <MoonIcon className='h-6 w-6 fill-current' />
               )}
             </button>
             <button
               onClick={toggleLanguage}
-              className='ml-3 rounded-full border border-solid border-light px-3 py-1 text-xs font-semibold text-light dark:border-dark dark:text-dark'
+              className='min-h-[44px] rounded-full border border-solid border-light px-3 py-1 text-xs font-semibold text-light dark:border-dark dark:text-dark'
               aria-label='Toggle language'
             >
               {isFrench ? 'EN' : 'FR'}
