@@ -35,7 +35,7 @@ jobs:
       - name: Setup SSH key
         run: |
           install -m 700 -d ~/.ssh
-          printf "%s" "${{ secrets.OCI_SSH_KEY }}" | tr -d '\r' > ~/.ssh/id_ed25519
+          echo "${{ secrets.OCI_SSH_KEY_B64 }}" | base64 -d > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H "${{ secrets.OCI_HOST }}" >> ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
