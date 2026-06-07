@@ -216,7 +216,7 @@ const NavBar = () => {
               toggle={handleClick}
             />
           </nav>
-          <nav className='mt-8 flex max-w-[240px] flex-wrap items-center justify-center gap-3'>
+          <nav className='mt-8 grid grid-cols-3 items-center justify-items-center gap-3'>
             <motion.a
               href='https://www.twitter.com/seifeslimene'
               target={'_blank'}
@@ -272,14 +272,14 @@ const NavBar = () => {
                 <MoonIcon className='h-6 w-6 fill-current' />
               )}
             </button>
-            <button
-              onClick={toggleLanguage}
-              className='flex h-11 w-11 items-center justify-center rounded-full bg-light text-[11px] font-semibold text-dark shadow-sm'
-              aria-label='Toggle language'
-            >
-              {isFrench ? 'EN' : 'FR'}
-            </button>
           </nav>
+          <button
+            onClick={toggleLanguage}
+            className='mt-4 rounded-full bg-light px-4 py-2 text-xs font-semibold text-dark shadow-sm'
+            aria-label='Toggle language'
+          >
+            {isFrench ? 'EN' : 'FR'}
+          </button>
           </motion.div>
         </>
       ) : null}
