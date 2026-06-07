@@ -114,7 +114,7 @@ const NavBar = () => {
             whileTap={{ scale: 0.9 }}
             className='w-6 mr-3'
           >
-            <TwitterIcon />
+            <TwitterIcon className='h-6 w-6' />
           </motion.a>
           <motion.a
             href='https://www.github.com/seifeslimene'
@@ -123,7 +123,7 @@ const NavBar = () => {
             whileTap={{ scale: 0.9 }}
             className='w-6 mx-3'
           >
-            <GithubIcon />
+            <GithubIcon className='h-6 w-6' />
           </motion.a>
           <motion.a
             href='https://www.linkedin.com/in/seifeslimene'
@@ -132,7 +132,7 @@ const NavBar = () => {
             whileTap={{ scale: 0.9 }}
             className='w-6 mx-3'
           >
-            <LinkedinIcon />
+            <LinkedinIcon className='h-6 w-6' />
           </motion.a>
           <motion.a
             href='https://www.pinterest.com/seifeslimene'
@@ -141,7 +141,7 @@ const NavBar = () => {
             whileTap={{ scale: 0.9 }}
             className='w-6 mx-3 bg-light rounded-full'
           >
-            <PinterestIcon />
+            <PinterestIcon className='h-6 w-6' />
           </motion.a>
           <motion.a
             href='https://dribbble.com/seifeslimene'
@@ -150,7 +150,7 @@ const NavBar = () => {
             whileTap={{ scale: 0.9 }}
             className='w-6 ml-3'
           >
-            <DribbbleIcon />
+            <DribbbleIcon className='h-6 w-6' />
           </motion.a>
           <button
             onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}
@@ -158,9 +158,9 @@ const NavBar = () => {
           ${mode === 'light' ? 'bg-dark text-light' : 'bg-light text-dark'}`}
           >
             {mode === 'dark' ? (
-              <SunIcon className={'fill-dark'} />
+              <SunIcon className='h-6 w-6 fill-current' />
             ) : (
-              <MoonIcon className={'fill-dark'} />
+              <MoonIcon className='h-6 w-6 fill-current' />
             )}
           </button>
           <button
@@ -222,45 +222,45 @@ const NavBar = () => {
               target={'_blank'}
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.9 }}
-              className='flex h-11 w-11 items-center justify-center rounded-full bg-light text-dark shadow-sm'
+              className='flex h-11 w-11 items-center justify-center'
             >
-              <TwitterIcon className='h-6 w-6' />
+              <TwitterIcon className='h-6 w-6 fill-light dark:fill-dark' />
             </motion.a>
             <motion.a
               href='https://www.github.com/seifeslimene'
               target={'_blank'}
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.9 }}
-              className='flex h-11 w-11 items-center justify-center rounded-full bg-light text-dark shadow-sm'
+              className='flex h-11 w-11 items-center justify-center'
             >
-              <GithubIcon className='h-6 w-6' />
+              <GithubIcon className='h-6 w-6 fill-light dark:fill-dark' />
             </motion.a>
             <motion.a
               href='https://www.linkedin.com/in/seifeslimene'
               target={'_blank'}
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.9 }}
-              className='flex h-11 w-11 items-center justify-center rounded-full bg-light text-dark shadow-sm'
+              className='flex h-11 w-11 items-center justify-center'
             >
-              <LinkedinIcon className='h-6 w-6' />
+              <LinkedinIcon className='h-6 w-6 fill-light dark:fill-dark' />
             </motion.a>
             <motion.a
               href='https://www.pinterest.com/seifeslimene'
               target={'_blank'}
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.9 }}
-              className='flex h-11 w-11 items-center justify-center rounded-full bg-light text-dark shadow-sm'
+              className='flex h-11 w-11 items-center justify-center'
             >
-              <PinterestIcon className='h-6 w-6' />
+              <PinterestIcon className='h-6 w-6 fill-light dark:fill-dark' />
             </motion.a>
             <motion.a
               href='https://dribbble.com/seifeslimene'
               target={'_blank'}
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.9 }}
-              className='flex h-11 w-11 items-center justify-center rounded-full bg-light text-dark shadow-sm'
+              className='flex h-11 w-11 items-center justify-center'
             >
-              <DribbbleIcon className='h-6 w-6' />
+              <DribbbleIcon className='h-6 w-6 fill-light dark:fill-dark' />
             </motion.a>
             <button
               onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}
