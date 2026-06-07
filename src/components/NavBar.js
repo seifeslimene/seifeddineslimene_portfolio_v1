@@ -216,13 +216,13 @@ const NavBar = () => {
               toggle={handleClick}
             />
           </nav>
-          <nav className='mt-10 flex flex-wrap items-center justify-center gap-5'>
+          <nav className='mt-8 flex max-w-[240px] flex-wrap items-center justify-center gap-3'>
             <motion.a
               href='https://www.twitter.com/seifeslimene'
               target={'_blank'}
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.9 }}
-              className='flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full bg-light text-dark shadow-sm'
+              className='flex h-11 w-11 items-center justify-center rounded-full bg-light text-dark shadow-sm'
             >
               <TwitterIcon className='h-6 w-6' />
             </motion.a>
@@ -231,7 +231,7 @@ const NavBar = () => {
               target={'_blank'}
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.9 }}
-              className='flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full bg-light text-dark shadow-sm'
+              className='flex h-11 w-11 items-center justify-center rounded-full bg-light text-dark shadow-sm'
             >
               <GithubIcon className='h-6 w-6' />
             </motion.a>
@@ -240,7 +240,7 @@ const NavBar = () => {
               target={'_blank'}
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.9 }}
-              className='flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full bg-light text-dark shadow-sm'
+              className='flex h-11 w-11 items-center justify-center rounded-full bg-light text-dark shadow-sm'
             >
               <LinkedinIcon className='h-6 w-6' />
             </motion.a>
@@ -249,7 +249,7 @@ const NavBar = () => {
               target={'_blank'}
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.9 }}
-              className='flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full bg-light text-dark shadow-sm'
+              className='flex h-11 w-11 items-center justify-center rounded-full bg-light text-dark shadow-sm'
             >
               <PinterestIcon className='h-6 w-6' />
             </motion.a>
@@ -258,13 +258,13 @@ const NavBar = () => {
               target={'_blank'}
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.9 }}
-              className='flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full bg-light text-dark shadow-sm'
+              className='flex h-11 w-11 items-center justify-center rounded-full bg-light text-dark shadow-sm'
             >
               <DribbbleIcon className='h-6 w-6' />
             </motion.a>
             <button
               onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}
-              className='flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full bg-light p-1 text-dark shadow-sm'
+              className='flex h-11 w-11 items-center justify-center rounded-full bg-light p-1 text-dark shadow-sm'
             >
               {mode === 'dark' ? (
                 <SunIcon className='h-6 w-6 fill-current' />
@@ -274,7 +274,7 @@ const NavBar = () => {
             </button>
             <button
               onClick={toggleLanguage}
-              className='min-h-[44px] rounded-full border border-solid border-light px-3 py-1 text-xs font-semibold text-light dark:border-dark dark:text-dark'
+              className='flex h-11 w-11 items-center justify-center rounded-full bg-light text-[11px] font-semibold text-dark shadow-sm'
               aria-label='Toggle language'
             >
               {isFrench ? 'EN' : 'FR'}
