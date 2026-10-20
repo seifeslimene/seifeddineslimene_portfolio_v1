@@ -175,6 +175,7 @@ const projects = [
   createProject({
     id: 'booking_plugin_system',
     title: 'Booking Plugin System',
+    link: 'https://booking.seifeddineslimene.com',
     summary: 'The Booking System Plugin is a reusable web component built with Stencil that enables businesses to integrate appointment and reservation functionality into their websites. This plugin provides a standalone, framework-agnostic component that can be easily embedded into any web application through script tags or NPM installation, allowing customers to browse availability and book appointments seamlessly. The component is designed to work independently or within existing web applications, offering a professional booking experience that can be customized and deployed across different platforms and websites.',
     githubLinks: [{ label: 'fullstack', url: 'https://github.com/seifeslimene/booking_system_plugin_clone' }],
     web: ['2026-05-26_16-53.png', '2026-05-26_16-54.png', '2026-05-26_16-55.png'],
@@ -294,6 +295,7 @@ const projects = [
   createProject({
     id: 'react_phone_store',
     title: 'React Phone Store',
+    link: 'https://phonestore.seifeddineslimene.com',
     summary: 'React Phone Ecommerce is a mobile phone retail platform that enables customers to browse, search, and purchase smartphones and related devices online. Built with React, the application provides an intuitive shopping interface where users can explore phone categories, view detailed product information, compare models, and manage their shopping cart before completing purchases. The platform delivers a responsive and interactive experience for discovering and buying mobile phones through a modern web-based storefront.',
     githubLinks: [{ label: 'Fullstack', url: 'https://github.com/seifeslimene/react_phone_ecommerce' }],
     web: [
@@ -416,6 +418,7 @@ const projects = [
   createProject({
     id: 'vanilla_online_store',
     title: 'Vanilla Online Store',
+    link: 'https://vanilla.seifeddineslimene.com',
     summary: 'Vanille Online Store is a lightweight, responsive single-page application built with vanilla JavaScript that provides a streamlined online shopping experience without heavy frameworks. The platform enables customers to browse products, view detailed information, manage their shopping cart, and complete purchases through an intuitive interface. Integrated with EmailJS for customer communication and Firebase Real-time Database for product and order management, Vanille Online Store leverages the RAWG API for gaming products catalog. Built with vanilla JavaScript, jQuery, Bootstrap, HTML, and CSS, the store delivers a fast-loading, responsive design that works seamlessly across desktop, tablet, and mobile devices, offering an alternative e-commerce solution that emphasizes simplicity and performance.',
     githubLinks: [{ label: 'Fullstack', url: 'https://github.com/seifeslimene/vanille_online_store' }],
     web: ['vanille_online_store_1.jpg', 'vanille_online_store_2.jpg'],

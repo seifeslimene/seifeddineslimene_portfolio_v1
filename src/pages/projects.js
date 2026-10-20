@@ -418,9 +418,6 @@ const ProjectsPage = () => {
       : 'Selected Fullstack Projects',
   };
 
-  const FEATURE_FLAGS = {
-    showVisitCta: false,
-  };
   const localizedProjects = projects.map((project) =>
     isFrench
       ? {
@@ -535,7 +532,7 @@ const ProjectsPage = () => {
                   link={project.link}
                   githubLinks={project.githubLinks}
                   type={project.type}
-                  showVisitCta={FEATURE_FLAGS.showVisitCta}
+                  showVisitCta={project.link.startsWith('http')}
                   onOpenGallery={() => openProjectGallery(project)}
                   labels={labels}
                 />
@@ -550,7 +547,7 @@ const ProjectsPage = () => {
                   link={project.link}
                   githubLinks={project.githubLinks}
                   type={project.type}
-                  showVisitCta={FEATURE_FLAGS.showVisitCta}
+                  showVisitCta={project.link.startsWith('http')}
                   onOpenGallery={() => openProjectGallery(project)}
                   labels={labels}
                 />
